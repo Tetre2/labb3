@@ -102,25 +102,39 @@ class Calculator {
 
     // ---------- Tokenize -----------------------
 
-    String[] tokenize(String input){
+    List tokenize(String input){
         char[] cArr = input.toCharArray();
-        int indexStartSubString = 0;
-
+        cArr = removeWhiteSpace(cArr);
         StringBuilder sb = new StringBuilder();
+        List finalStrings = new ArrayList();
 
         for (int i = 0; i < cArr.length; i++) {
-                if(isNumber(cArr[i]) || isWhiteSpace()){
-                   sb.append(cArr[i]);
-                }else{
-
-                }
+            if(isNumber(cArr[i])){
+                sb.append(cArr[i]);
+            }else{
+                finalStrings.add(sb.toString());
+                sb.setLength(0); //clears the StringBuilder
+                finalStrings.add(cArr[i]); //är det inte ett numer är det en operator
             }
+        }
+        finalStrings.add(sb.toString());// för att få med den sista termen
 
-        return null;
+        return finalStrings;
     }
 
-    boolean isWhiteSpace(){
-        return false;
+    boolean isWhiteSpace(char c){
+        return Character.isWhitespace(c);
+    }
+
+    char[] removeWhiteSpace(char[] c){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < c.length; i++) {
+            if(!isWhiteSpace(c[i])){
+                sb.append(c[i]);
+            }
+        }
+        char[] arr = sb.toString().toCharArray();
+        return  arr;
     }
 
     boolean isNumber(char c){

@@ -1,9 +1,6 @@
 package calc;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.System.out;
 
@@ -25,22 +22,20 @@ class Test {
 
         // Here you could write your own test for any "small" helper methods
 
-        char c = '1';
 
-        System.out.println(c);
 
 
         // Uncomment line by line to test
 
         // Tokenization ---------------------------
-        /*t("1 + 10", "1 + 10");  // Arguments are input and expected output
+        t("1 + 10", "1 + 10");  // Arguments are input and expected output
         t("1+ 10", "1 + 10");   // Expected is in fact a list [ "1", "+", "10"]
         t("1 +10", "1 + 10");
         t("1+10", "1 + 10");
         t("(1+10) ", "( 1 + 10 )");  // List is [ "(", "1", "+", "10", ")" ]
         t("2 *( 1+10) ", "2 * ( 1 + 10 )");
         t("(1 +2) /2 *( 1+10) ", "( 1 + 2 ) / 2 * ( 1 + 10 )");
-        */
+
 
         // Infix to postfix -----------------------
         /*
@@ -128,17 +123,18 @@ class Test {
 
 
     // ------- Below are helper methods for testing NOTHING to do here -------------------
-/*
+
 
     // t for tokenize, a very short name, lazy, avoid typing ...
     void t(String expr, String expected) {
         List<String> list = calculator.tokenize(expr);
+        System.out.println(list);
         String result = String.join(" ", list);
         out.println(result.equals(expected));
     }
 
     // Infix 2 postfix
-    void i2p(String infix, String expected) {
+/*    void i2p(String infix, String expected) {
         List<String> tokens = calculator.tokenize(infix);
         List<String> postfix = calculator.infix2Postfix(tokens);
         String result = String.join(" ", postfix);
