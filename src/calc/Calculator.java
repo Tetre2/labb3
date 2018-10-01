@@ -66,12 +66,6 @@ class Calculator {
     // TODO Methods
 
 
-
-
-
-
-
-
     int getPrecedence(String op) {
         if ("+-".contains(op)) {
             return 2;
@@ -102,61 +96,74 @@ class Calculator {
 
     // ---------- Tokenize -----------------------
 
-    List tokenize(String input){
-        char[] cArr = input.toCharArray();
-        cArr = removeWhiteSpace(cArr);
+    List tokenize(String input) {
+        input = input.trim();
+        String[] sArr = input.split("");
         StringBuilder sb = new StringBuilder();
-        List finalStrings = new ArrayList();
-
-        for (int i = 0; i < cArr.length; i++) {
-            if(isNumber(cArr[i])){
-                sb.append(cArr[i]);
-            }else{
-                finalStrings.add(sb.toString());
-                sb.setLength(0); //clears the StringBuilder
-                finalStrings.add(cArr[i]); //är det inte ett numer är det en operator
-            }
-        }
-        finalStrings.add(sb.toString());// för att få med den sista termen
+        List finalStrings = createFinalString(sArr, sb);
 
         return finalStrings;
     }
 
-    boolean isWhiteSpace(char c){
-        return Character.isWhitespace(c);
-    }
+    List createFinalString(String[] sArr, StringBuilder sb) {
+        List finalStrings = new ArrayList();
 
-    char[] removeWhiteSpace(char[] c){
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < c.length; i++) {
-            if(!isWhiteSpace(c[i])){
-                sb.append(c[i]);
-            }
+        for (int i = 0; i < sArr.length; i++) {
+            checkValidity(sArr[i], finalStrings, sb);
         }
-        char[] arr = sb.toString().toCharArray();
-        return  arr;
+
+        checkValidityOnLast(sArr[sArr.length-1], finalStrings, sb);
+        return finalStrings;
     }
 
-    boolean isNumber(char c){
-        char[] numb = new char[]{'0','1','2','3','4','5','6','7','8','9'};
-        for (int i = 0; i < numb.length; i++) {
-            if(numb[i] == c){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    char getNextCharInArr(char[] c, int index){
-        if(c[index + 1] < c.length){
-            return c[index+1];
-        }else{
-            return 'a';
+    void checkValidityOnLast(String s, List finalStrings, StringBuilder sb){
+        if(isNumber(s)){
+            finalStrings.add(sb.toString());// för att få med den sista termen
         }
     }
 
-    // TODO Methods to tokenize
+    void checkValidity(String s, List finalStrings, StringBuilder sb){
+        if (isNumber(s)) {
+            sb.append(s);
+
+        } else if (isOperator(s)) { //är det en operator vill vi lägga till den också
+            addSb2FinalStrings(finalStrings, sb);
+            finalStrings.add(s);
+
+        } else if (isPara(s)) { //är det en operator vill vi lägga till den också
+            addSb2FinalStrings(finalStrings, sb);
+            finalStrings.add(s);
+
+        } else if (!(isWhiteSpace(s))) {
+            addSb2FinalStrings(finalStrings, sb);
+        }
+    }
+
+    void addSb2FinalStrings(List finalStrings, StringBuilder sb){
+        if (sb.length() > 0) {
+            finalStrings.add(sb.toString());
+        }
+        sb.setLength(0); //clears the StringBuilder
+    }
+
+    boolean isPara(String s) {
+        String numb = "()[]{}";
+        return numb.indexOf(s) >= 0;
+    }
+
+    boolean isOperator(String s) {
+        String numb = "+-*/^";
+        return numb.indexOf(s) >= 0;
+    }
+
+    boolean isWhiteSpace(String s) {
+        return s.equals(" ");
+    }
+
+    boolean isNumber(String s) {
+        String numb = "0123456789";
+        return numb.indexOf(s) >= 0;
+    }
 
 }
 
