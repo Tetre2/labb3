@@ -65,6 +65,43 @@ class Calculator {
 
     // TODO Methods
 
+    List infix2Postfix(List tokenizedExpr) {
+
+        for (int i = 0; i < tokenizedExpr.size(); i++) {
+
+
+
+        }
+
+
+        return null;
+    }
+
+    int getHighestPriority(List<String> tokenizedExpr) {
+        int highest = 1;
+        for (int i = 0; i < tokenizedExpr.size(); i++) {
+            if (getPrioritization(tokenizedExpr.get(i)) > highest) {
+                highest = getPrioritization(tokenizedExpr.get(i));
+            }
+        }
+        return highest;
+    }
+
+    int getPrioritization(String token) {
+        if ("(".contains(token)) {
+            return 4;
+        }
+        if ("^".contains(token)) {
+            return 3;
+        }
+        if ("*/".contains(token)) {
+            return 2;
+        }
+        if ("+-".contains(token)) {
+            return 1;
+        }
+        return -1;
+    }
 
     int getPrecedence(String op) {
         if ("+-".contains(op)) {
@@ -96,57 +133,55 @@ class Calculator {
 
     // ---------- Tokenize -----------------------
 
-    List tokenize(String input) {
-        input = input.trim();
-        String[] sArr = input.split("");
-        StringBuilder sb = new StringBuilder();
-        List finalStrings = createFinalString(sArr, sb);
+    List tokenize(String expr) {
+        expr = expr.trim();
+        String[] exprAsStringArr = expr.split("");
+        List finalStrings = createTokenizedList(exprAsStringArr);
 
         return finalStrings;
     }
 
-    List createFinalString(String[] sArr, StringBuilder sb) {
-        List finalStrings = new ArrayList();
+    List createTokenizedList(String[] sArr) {
+        List tokenizedList = new ArrayList();
+        StringBuilder sb = new StringBuilder();
+        boolean isLastIndex = false;
 
         for (int i = 0; i < sArr.length; i++) {
-            checkValidity(sArr[i], finalStrings, sb);
+            isLastIndex = i == sArr.length - 1;
+            checkValidity(sArr[i], tokenizedList, sb, isLastIndex);
         }
-
-        checkValidityOnLast(sArr[sArr.length-1], finalStrings, sb);
-        return finalStrings;
+        return tokenizedList;
     }
 
-    void checkValidityOnLast(String s, List finalStrings, StringBuilder sb){
-        if(isNumber(s)){
-            finalStrings.add(sb.toString());// för att få med den sista termen
-        }
-    }
 
-    void checkValidity(String s, List finalStrings, StringBuilder sb){
+    void checkValidity(String s, List tokenizedList, StringBuilder number, boolean isLastIndex) {//TODO ++går inte.
         if (isNumber(s)) {
-            sb.append(s);
+            number.append(s);
+            if (isLastIndex) {
+                tokenizedList.add(number.toString());
+            }
 
         } else if (isOperator(s)) { //är det en operator vill vi lägga till den också
-            addSb2FinalStrings(finalStrings, sb);
-            finalStrings.add(s);
+            addNumber2TokenizedList(tokenizedList, number);
+            tokenizedList.add(s);
 
-        } else if (isPara(s)) { //är det en operator vill vi lägga till den också
-            addSb2FinalStrings(finalStrings, sb);
-            finalStrings.add(s);
+        } else if (isParantheses(s)) { //är det en operator vill vi lägga till den också
+            addNumber2TokenizedList(tokenizedList, number);
+            tokenizedList.add(s);
 
         } else if (!(isWhiteSpace(s))) {
-            addSb2FinalStrings(finalStrings, sb);
+            addNumber2TokenizedList(tokenizedList, number);
         }
     }
 
-    void addSb2FinalStrings(List finalStrings, StringBuilder sb){
+    void addNumber2TokenizedList(List tokenizedList, StringBuilder sb) {
         if (sb.length() > 0) {
-            finalStrings.add(sb.toString());
+            tokenizedList.add(sb.toString());
         }
         sb.setLength(0); //clears the StringBuilder
     }
 
-    boolean isPara(String s) {
+    boolean isParantheses(String s) {
         String numb = "()[]{}";
         return numb.indexOf(s) >= 0;
     }
@@ -166,14 +201,3 @@ class Calculator {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-

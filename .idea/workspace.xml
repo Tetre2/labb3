@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ffd7f2c4-fa5b-4b46-a4d9-712c62e24176" name="Default" comment="Tokinize är implementerad och fungerar">
+    <list default="true" id="ffd7f2c4-fa5b-4b46-a4d9-712c62e24176" name="Default" comment="Tokinize är implementerad och fungerar dena gången göt den det också....">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/calc/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/calc/Calculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/calc/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/calc/Test.java" afterDir="false" />
@@ -21,21 +21,23 @@
         <counts>
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2248" />
-          <entry key="txt" value="43" />
+          <entry key="java" value="2297" />
+          <entry key="txt" value="80" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2248" />
-          <entry key="PLAIN_TEXT" value="43" />
+          <entry key="JAVA" value="2297" />
+          <entry key="PLAIN_TEXT" value="80" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -52,23 +54,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calc/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+            <state relative-caret-position="-1145">
+              <caret line="50" lean-forward="true" selection-start-line="39" selection-end-line="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/calc/Calculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="114" column="27" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="27" />
+            <state relative-caret-position="2459">
+              <caret line="202" column="1" selection-start-line="202" selection-start-column="1" selection-end-line="202" selection-end-column="1" />
               <folding>
-                <element signature="e#4222#4223#0" expanded="true" />
-                <element signature="e#4258#4259#0" expanded="true" />
+                <element signature="e#5181#5182#0" expanded="true" />
+                <element signature="e#5217#5218#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,7 +79,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/assignment3.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-548" />
+            <state relative-caret-position="680">
+              <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -98,14 +102,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calc/Test.java" />
         <option value="$PROJECT_DIR$/src/calc/Calculator.java" />
+        <option value="$PROJECT_DIR$/src/calc/Test.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1944" />
-    <option name="height" value="1104" />
+    <option name="width" value="1945" />
+    <option name="height" value="1105" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -115,7 +119,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -139,10 +142,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538407297819" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538407741799" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Labb2" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -324,14 +328,21 @@
       <option name="project" value="LOCAL" />
       <updated>1538157666548</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Tokinize är implementerad och fungerar dena gången göt den det också....">
+      <created>1538407355160</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1538407355160</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13422818" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13825503" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Nl-Palette" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -366,7 +377,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Tokinize är implementerad och fungerar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tokinize är implementerad och fungerar" />
+    <MESSAGE value="Tokinize är implementerad och fungerar dena gången göt den det också...." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tokinize är implementerad och fungerar dena gången göt den det också...." />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -382,9 +394,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
           <caret line="80" column="17" lean-forward="true" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -393,7 +402,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/assignment3.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-548" />
+        <state relative-caret-position="680">
+          <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calc/REPL.java">
@@ -403,21 +414,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calc/Test.java">
+    <entry file="file://$PROJECT_DIR$/src/calc/Calculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        <state relative-caret-position="2459">
+          <caret line="202" column="1" selection-start-line="202" selection-start-column="1" selection-end-line="202" selection-end-column="1" />
+          <folding>
+            <element signature="e#5181#5182#0" expanded="true" />
+            <element signature="e#5217#5218#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calc/Calculator.java">
+    <entry file="file://$PROJECT_DIR$/src/calc/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="114" column="27" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="27" />
-          <folding>
-            <element signature="e#4222#4223#0" expanded="true" />
-            <element signature="e#4258#4259#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1145">
+          <caret line="50" lean-forward="true" selection-start-line="39" selection-end-line="50" />
         </state>
       </provider>
     </entry>
