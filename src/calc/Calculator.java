@@ -4,6 +4,7 @@ import java.util.*;
 
 import static java.lang.Double.NaN;
 import static java.lang.Math.pow;
+import static java.lang.Math.toIntExact;
 
 
 /*
@@ -65,46 +66,93 @@ class Calculator {
 
     // TODO Methods
 
-    List infix2Postfix(List tokenizedExpr) {
+    List infix2Postfix(List<String> infixExpr) {
+        Deque<String> stack = new ArrayDeque<>();
+        List<String> postFix = new ArrayList<>();
 
-        for (int i = 0; i < tokenizedExpr.size(); i++) {
+        for (int i = 0; i < infixExpr.size(); i++) {
+            String token = infixExpr.get(i);
 
+            if (isValue(token)) {
+                postFix.add(token);
+            } else if (isOperator(token)) {
 
+                if (stack.isEmpty()) {
+                    stack.push(token);
+                } else {
 
-        }
+                    if (checkIfPop(stack, token)) {
+                        popOperators(stack, postFix);
+                    }
+                    stack.push(token);
+                }
+            }else if(isLeftParantheses(token)){
+                stack.push(token);
 
-
-        return null;
-    }
-
-    int getHighestPriority(List<String> tokenizedExpr) {
-        int highest = 1;
-        for (int i = 0; i < tokenizedExpr.size(); i++) {
-            if (getPrioritization(tokenizedExpr.get(i)) > highest) {
-                highest = getPrioritization(tokenizedExpr.get(i));
+            }else if(isRightParantheses(token)){
+                while (!isLeftParantheses(stack.peek())){//While the top-stack is not a "("
+                    postFix.add(stack.pop());
+                }
+                stack.pop();//Remove left parantheses
             }
         }
-        return highest;
+
+        stack2PostFix(stack, postFix);
+
+        return postFix;
     }
 
-    int getPrioritization(String token) {
-        if ("(".contains(token)) {
-            return 4;
+    //Empties stack and put all elements to postFix
+    void stack2PostFix(Deque<String> stack, List<String> postFix) {
+        if (!stack.isEmpty()) {
+            while (!stack.isEmpty()) {
+                postFix.add(stack.pop());
+            }
         }
-        if ("^".contains(token)) {
-            return 3;
+    }
+
+    boolean isValue(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch (Exception e) {
+            return false;
         }
-        if ("*/".contains(token)) {
-            return 2;
+        return true;
+    }
+
+    boolean checkIfPop(Deque<String> stack, String token) {
+
+        if (!isLeftParantheses(token)) {
+            if (getPrecedence(token) < getPrecedence(stack.peek())) { //Check if priority is less than whats already on the top    //TODO Hur gör vi med if???
+                return true;
+            } else if (getPrecedence(token) == getPrecedence(stack.peek()) && getAssociativity(stack.peek()) == Assoc.LEFT) { //If its the same and the top has left associativity
+                return true;
+            }
         }
-        if ("+-".contains(token)) {
-            return 1;
+        return false;
+    }
+
+    boolean isLeftParantheses(String s) {
+        String par = "([{";
+        return par.indexOf(s) >= 0;
+    }
+
+    boolean isRightParantheses(String s) {
+        String par = ")]}";
+        return par.indexOf(s) >= 0;
+    }
+
+    void popOperators(Deque<String> stack, List<String> postFix) {
+        for (int i = 0; i < stack.size(); i++) {
+            postFix.add(stack.pop());
         }
-        return -1;
+
     }
 
     int getPrecedence(String op) {
-        if ("+-".contains(op)) {
+        if ("()[]{}".indexOf(op) >= 0) {
+            return 1;
+        }else if ("+-".contains(op)) {
             return 2;
         } else if ("*/".contains(op)) {
             return 3;
@@ -136,9 +184,9 @@ class Calculator {
     List tokenize(String expr) {
         expr = expr.trim();
         String[] exprAsStringArr = expr.split("");
-        List finalStrings = createTokenizedList(exprAsStringArr);
+        List infixExpr = createTokenizedList(exprAsStringArr);
 
-        return finalStrings;
+        return infixExpr;
     }
 
     List createTokenizedList(String[] sArr) {
@@ -165,7 +213,7 @@ class Calculator {
             addNumber2TokenizedList(tokenizedList, number);
             tokenizedList.add(s);
 
-        } else if (isParantheses(s)) { //är det en operator vill vi lägga till den också
+        } else if (isParantheses(s)) {
             addNumber2TokenizedList(tokenizedList, number);
             tokenizedList.add(s);
 
