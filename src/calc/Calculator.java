@@ -3,6 +3,7 @@ package calc;
 import java.util.*;
 
 import static java.lang.Double.NaN;
+import static java.lang.Double.doubleToLongBits;
 import static java.lang.Math.pow;
 import static java.lang.Math.toIntExact;
 
@@ -41,7 +42,53 @@ class Calculator {
 
     // ------  Evaluate RPN expression -------------------
 
-    // TODO Eval methods
+    double evalPostfix(List<String> postFix) {
+        while (postFix.size() != 1) {
+            preforOperation(postFix);
+
+        }
+
+        System.out.println(postFix.get(0));
+        return parsString2Double(postFix.get(0));
+    }
+
+    void preforOperation(List<String> postFix){
+
+        int opPoss = getOperatorPosission(postFix);
+        String op = postFix.get(opPoss);
+        String part1 = postFix.get(opPoss - 1);//TODO kom på bättre namn!!!!!!!!
+        String part2 = postFix.get(opPoss - 2);
+
+        double d1 = parsString2Double(part1);
+        double d2 = parsString2Double(part2);
+        double result = applyOperator(op, d1, d2);
+        //TODO fins det ett bättre sätt att konvertera double -> String???
+
+
+        postFix.set(opPoss, result + "");//För att placera tilbaka resultatet från där vi tog det
+        postFix.remove(part1);
+        postFix.remove(part2);
+
+    }
+
+    double parsString2Double(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            System.out.println("Error while trying to pars double");
+            throw new RuntimeException();
+        }
+    }
+
+    int getOperatorPosission(List<String> postFix) {
+        for (int i = 0; i < postFix.size(); i++) {
+            if (isOperator(postFix.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 
     double applyOperator(String op, double d1, double d2) {
         switch (op) {
@@ -61,6 +108,7 @@ class Calculator {
         }
         throw new RuntimeException(OP_NOT_FOUND);
     }
+
 
     // ------- Infix 2 Postfix ------------------------
 
@@ -86,11 +134,11 @@ class Calculator {
                     }
                     stack.push(token);
                 }
-            }else if(isLeftParantheses(token)){
+            } else if (isLeftParantheses(token)) {
                 stack.push(token);
 
-            }else if(isRightParantheses(token)){
-                while (!isLeftParantheses(stack.peek())){//While the top-stack is not a "("
+            } else if (isRightParantheses(token)) {
+                while (!isLeftParantheses(stack.peek())) {//While the top-stack is not a "("
                     postFix.add(stack.pop());
                 }
                 stack.pop();//Remove left parantheses
@@ -152,7 +200,7 @@ class Calculator {
     int getPrecedence(String op) {
         if ("()[]{}".indexOf(op) >= 0) {
             return 1;
-        }else if ("+-".contains(op)) {
+        } else if ("+-".contains(op)) {
             return 2;
         } else if ("*/".contains(op)) {
             return 3;

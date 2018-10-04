@@ -3,6 +3,7 @@ package calc;
 import java.util.*;
 
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 /**
  * This is a test program for the Calculator (testing a Calculator object)
@@ -38,7 +39,7 @@ class Test {
 */
         // Infix to postfix -----------------------
     //    i2p("1+10", "1 10 +");
-        i2p("1+2+3", "1 2 + 3 +");
+     /*   i2p("1+2+3", "1 2 + 3 +");
         i2p("1+2-3", "1 2 + 3 -");
         i2p("3-2-1", "3 2 - 1 -");
         i2p("1 + 2 * 3", "1 2 3 * +");
@@ -48,13 +49,13 @@ class Test {
         i2p("4^3*2", "4 3 ^ 2 *");
         i2p("(1+2)*3", "1 2 + 3 *");
         i2p("2^(1+1)", "2 1 1 + ^");
-        // Evaluation ------------------------------
-        /*
-        // A value
+       */ // Evaluation ------------------------------
+
+   /*     // A value
         e("123", 123);
 
-        // Basic operations
-        e("1 + 10", 11);
+   */     // Basic operations
+   /*     e("1 + 10", 11);
         e("1 + 0", 1);
         e("1 - 10", -9);  // Input may not be negative but output may
         e("10 - 1", 9);
@@ -89,9 +90,9 @@ class Test {
         e(" ((((1 + 1))) * 2)", 4);
 
         // Mix priority and right and left associativity
-        e(" 1 ^ 1 ^ 1 ^ 1  - 1", 0);
+        e(" 1 ^ 1 ^ 1 ^ 1  - 1", 0); //TODO VET INTE VARFÖR DET INTE FUNKAR
         e(" 4 - 2 - 1 ^ 2 ", 1);
-
+*/
         // Exceptions -----------------------------------
         try {
             e("1 / 0 ", 0);   // 0 just a dummy
@@ -113,7 +114,7 @@ class Test {
         } catch (IllegalArgumentException e) {
             out.println(e.getMessage().equals(Calculator.MISSING_OPERATOR));
         }
-        */
+
 
     }
 
@@ -130,6 +131,7 @@ class Test {
     }*/
 
     // Infix 2 postfix
+/*
     void i2p(String infix, String expected) {
         List<String> tokens = calculator.tokenize(infix);
         List<String> postfix = calculator.infix2Postfix(tokens);
@@ -137,14 +139,14 @@ class Test {
         String result = String.join(" ", postfix);
         out.println(result.equals(expected));
     }
+*/
 
     // Evaluation
-/*    void e(String infix, double expected) {
+    void e(String infix, double expected) {
         List<String> tokens = calculator.tokenize(infix);
         List<String> postfix = calculator.infix2Postfix(tokens);
         double result = calculator.evalPostfix(postfix);
         out.println(result == expected);
     }
-*/
 
 }
