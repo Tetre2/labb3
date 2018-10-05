@@ -34,10 +34,10 @@ class Calculator {
         if (expr.length() == 0) {
             return NaN;
         }
-        // TODO List<String> tokens = tokenize(expr);
-        // TODO List<String> postfix = infix2Postfix(tokens);
-        // TODO double result = evalPostfix(postfix);
-        return 0; // result;
+        List<String> tokens = tokenize(expr);
+        List<String> postfix = infix2Postfix(tokens);
+        double result = evalPostfix(postfix);
+        return result;
     }
 
     // ------  Evaluate RPN expression -------------------
@@ -45,10 +45,7 @@ class Calculator {
     double evalPostfix(List<String> postFix) {
         while (postFix.size() != 1) {
             preforOperation(postFix);
-
         }
-
-        System.out.println(postFix.get(0));
         return parsString2Double(postFix.get(0));
     }
 
@@ -56,19 +53,33 @@ class Calculator {
 
         int opPoss = getOperatorPosission(postFix);
         String op = postFix.get(opPoss);
-        String part1 = postFix.get(opPoss - 1);//TODO kom på bättre namn!!!!!!!!
-        String part2 = postFix.get(opPoss - 2);
+        String operand1 = getOperand1(postFix, opPoss);
+        String operand2 = getOperand2(postFix, opPoss);
 
-        double d1 = parsString2Double(part1);
-        double d2 = parsString2Double(part2);
+        double d1 = parsString2Double(operand1);
+        double d2 = parsString2Double(operand2);
         double result = applyOperator(op, d1, d2);
-        //TODO fins det ett bättre sätt att konvertera double -> String???
 
 
-        postFix.set(opPoss, result + "");//För att placera tilbaka resultatet från där vi tog det
-        postFix.remove(part1);
-        postFix.remove(part2);
 
+        postFix.set(opPoss, String.valueOf(result));//För att placera tilbaka resultatet från där vi tog det
+        postFix.remove(operand1);//Eftersom Strings är referenser kan man ta bort dem från listan med hjälp av stringen.
+        postFix.remove(operand2);
+
+    }
+
+    String getOperand1(List<String> postFix, int opPoss){
+        if(postFix.size() - 1 > 0){
+            return postFix.get(opPoss - 1);
+        }
+        throw new IllegalArgumentException(MISSING_OPERAND);
+    }
+
+    String getOperand2(List<String> postFix, int opPoss){
+        if(postFix.size() - 2 > 0){
+            return postFix.get(opPoss - 2);
+        }
+        throw new IllegalArgumentException(MISSING_OPERAND);
     }
 
     double parsString2Double(String s) {
@@ -86,7 +97,7 @@ class Calculator {
                 return i;
             }
         }
-        return -1;
+        throw new IllegalArgumentException(MISSING_OPERATOR);
     }
 
 
@@ -138,10 +149,15 @@ class Calculator {
                 stack.push(token);
 
             } else if (isRightParantheses(token)) {
-                while (!isLeftParantheses(stack.peek())) {//While the top-stack is not a "("
-                    postFix.add(stack.pop());
+
+                if(stack.contains("(")){//Krångligt, behöver förklaras vid tilfälle //TODO Plocka ut till egen metod
+                    while (!isLeftParantheses(stack.peek())) {//While the top-stack is not a "("
+                        postFix.add(stack.pop());
+                    }
+                    postFix.add(stack.pop());//Remove left parantheses
+                }else {
+                    throw new IllegalArgumentException(MISSING_OPERATOR);
                 }
-                stack.pop();//Remove left parantheses
             }
         }
 
@@ -191,10 +207,10 @@ class Calculator {
     }
 
     void popOperators(Deque<String> stack, List<String> postFix) {
-        for (int i = 0; i < stack.size(); i++) {
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
             postFix.add(stack.pop());
         }
-
     }
 
     int getPrecedence(String op) {
@@ -250,7 +266,7 @@ class Calculator {
     }
 
 
-    void checkValidity(String s, List tokenizedList, StringBuilder number, boolean isLastIndex) {//TODO ++går inte.
+    void checkValidity(String s, List tokenizedList, StringBuilder number, boolean isLastIndex) {
         if (isNumber(s)) {
             number.append(s);
             if (isLastIndex) {
@@ -265,7 +281,7 @@ class Calculator {
             addNumber2TokenizedList(tokenizedList, number);
             tokenizedList.add(s);
 
-        } else if (!(isWhiteSpace(s))) {
+        } else if (isWhiteSpace(s)) {                 // osäker på om det borde vara ! eler inte TODO HELP?
             addNumber2TokenizedList(tokenizedList, number);
         }
     }
